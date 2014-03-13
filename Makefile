@@ -1,8 +1,8 @@
 EXE=elftag
 CXX=g++
 CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic
-SRC=
-OBJ=$(SRC:.c=.o)
+SRC=src/header.cc src/main.cc
+OBJ=$(SRC:.cc=.o)
 TAR=yrakcaz-elftag
 
 -include makefile.rules
@@ -17,6 +17,9 @@ $(EXE): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(EXE) $(TAR).tar.bz2
+
+check: all
+	./elftag elftag | hexdump
 
 distclean: clean
 	rm -f makefile.rules

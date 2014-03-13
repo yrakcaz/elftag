@@ -1,4 +1,13 @@
-int main(/*int argc, char** argv*/)
+#include "../include/header.hh"
+
+int main(int argc, char** argv)
 {
-    return 0;
+    if (argc > 1)
+    {
+        Header header(argv[1]);
+        header.display();
+        return 0;
+    }
+    else
+        return 1;
 }
