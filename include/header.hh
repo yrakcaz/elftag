@@ -36,6 +36,8 @@ class Header
     private:
         FILE* elf_file_;
         s_elfheader* header_;
+        std::vector<std::string> abi_;
+        std::map<uint16_t, std::string> isa_;
 };
 
 #endif /* !HEADER_HH */
