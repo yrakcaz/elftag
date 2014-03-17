@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <iostream>
+# include <map>
 
 // Structure for mapping the ELF64 header
 typedef struct elfheader
@@ -32,13 +33,15 @@ class Header
         Header(const char* path);
         ~Header();
 
-        void display_raw();
+        void header_set(const char* path);
+        void display();
 
     private:
         FILE* elf_file_;
         s_elfheader* header_;
-        std::vector<std::string> abi_;
-        std::map<uint16_t, std::string> isa_;
+        const char** abi_;
+        const char** isa_;
+        const char** type_;
 };
 
 #endif /* !HEADER_HH */
