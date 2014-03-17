@@ -2,6 +2,7 @@
 # define HEADER_HH
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <iostream>
 
 // Structure for mapping the ELF64 header
@@ -31,7 +32,7 @@ class Header
         Header(const char* path);
         ~Header();
 
-        void display();
+        void display_raw();
 
     private:
         FILE* elf_file_;
