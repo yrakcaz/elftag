@@ -4,7 +4,7 @@ Header::Header()
     : header_(new s_elfheader)
     , abi_(new const char*[13])
     , isa_(new const char*[200])
-    , type_(new const char*[4])
+    , type_(new const char*[5])
 {
     abi_[0] = "System V";
     abi_[1] = "HP-UX";
@@ -34,7 +34,7 @@ Header::Header(const char* path)
     , header_(new s_elfheader)
     , abi_(new const char*[13])
     , isa_(new const char*[200])
-    , type_(new const char*[4])
+    , type_(new const char*[5])
 {
     fread(header_, 400, 1, elf_file_);
     abi_[0] = "System V";
