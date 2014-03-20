@@ -10,11 +10,10 @@ Header::Header()
     abi_[1] = "HP-UX";
     abi_[2] = "NetBSD";
     abi_[3] = "Linux";
-    abi_[6] = "Linux";
+    abi_[6] = "OpenBSD";
     abi_[7] = "AIX";
     abi_[8] = "IRIX";
     abi_[9] = "FreeBSD";
-    abi_[12] = "OpenBSD";
     isa_[2] = "SPARC";
     isa_[3] = "x86";
     isa_[8] = "MIPS";
@@ -41,11 +40,10 @@ Header::Header(const char* path)
     abi_[1] = "HP-UX";
     abi_[2] = "NetBSD";
     abi_[3] = "Linux";
-    abi_[6] = "Linux";
+    abi_[6] = "OpenBSD";
     abi_[7] = "AIX";
     abi_[8] = "IRIX";
     abi_[9] = "FreeBSD";
-    abi_[12] = "OpenBSD";
     isa_[2] = "SPARC";
     isa_[3] = "x86";
     isa_[8] = "MIPS";
@@ -73,7 +71,7 @@ void Header::header_set(const char* path)
 void Header::display()
 {
     std::cout << "\n\033[31mRAW ELF64 HEADER DISPLAY :\033[0m" << std::endl << std::endl;
-    std::cout << "OS:\t\t" << abi_[header_->identifier[7]] << "\t/* It's often false */"<< std::endl;
+    std::cout << "Identifier:\t" << /*abi_[*/*(int *)header_->identifier/*[7]]*/ << std::endl;
     std::cout << "Type:\t\t" << type_[header_->type] << std::endl;
     std::cout << "Machine:\t" << isa_[header_->machine] << std::endl;
     std::cout << "Version:\t" << header_->version << std::endl;
