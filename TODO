@@ -5,6 +5,8 @@ TODO:
 
 - Linux x2 in abi_?     FIXED
 
-- Ltrace
+- Strace?
 
-- Objdump (.text)
+- Errors checking
+
+- Valgrind

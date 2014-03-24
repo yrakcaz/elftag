@@ -2,6 +2,7 @@
 # define DISASS_HH
 
 # include "header.hh"
+# include "udis86.h"
 
 typedef struct sectionheader
 {
@@ -24,7 +25,10 @@ class Disass
         Disass(Header& header);
         ~Disass();
 
-        void print_sections();
+        void print(bool disass);
+
+    private:
+        void disass_text(s_sectionheader* section);
 
     private:
         Header header_;

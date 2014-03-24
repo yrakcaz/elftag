@@ -2,6 +2,7 @@ EXE=elftag
 CXX=g++
 CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic
 SRC=src/disass.cc src/header.cc src/elftag.cc src/main.cc
+LDFLAGS=-ludis86
 OBJ=$(SRC:.cc=.o)
 TAR=yrakcaz-elftag
 
@@ -10,7 +11,7 @@ TAR=yrakcaz-elftag
 all: $(EXE)
 
 $(EXE): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(EXE) $^
+	$(CXX) $(CXXFLAGS) -o $(EXE) $^ $(LDFLAGS)
 
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c -o $@ $^

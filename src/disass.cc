@@ -13,7 +13,20 @@ Disass::~Disass()
 {
 }
 
-void Disass::print_sections()
+void  Disass::disass_text(s_sectionheader* section)
+{
+    s_elfheader* hdr = header_.header_get();
+    unsigned char* text = (unsigned char*)((char*)hdr + section->offset);
+    ud_t obj;
+    ud_init(&obj);
+    ud_set_input_buffer(&obj, text, section->size);
+    ud_set_mode(&obj, 64);
+    ud_set_syntax(&obj, UD_SYN_INTEL);
+    while (ud_disassemble(&obj))
+        std::cout << "\t" << ud_insn_asm(&obj) << std::endl;
+}
+
+void Disass::print(bool disass)
 {
     s_elfheader* hdr = header_.header_get();
     s_sectionheader* stab = (s_sectionheader*)((char*)hdr + hdr->shoff);
@@ -24,6 +37,9 @@ void Disass::print_sections()
     for (int i = 0; i < hdr->shnum; i++)
     {
         section = stab[i];
-        std::cout << strs + section.name << std::endl;
+        if (!disass)
+            std::cout << strs + section.name << std::endl;
+        else if (disass && std::string(strs + section.name) == ".text")
+            disass_text(&section);
     }
 }

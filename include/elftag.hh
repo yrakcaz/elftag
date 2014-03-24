@@ -24,6 +24,7 @@ class Elftag
         Header header_;
         bool display_header_;
         bool display_sections_;
+        bool disass_;
         bool help_;
 };
 
