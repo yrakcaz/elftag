@@ -33,7 +33,8 @@ void Disass::print(bool disass)
     s_sectionheader start = stab[hdr->shstrndx];
     char* strs = (char*)((char*)hdr + start.offset);
     s_sectionheader section;
-    std::cout << "\033[31mELF64 SECTIONS DISPLAY :\033[0m" << std::endl;
+    if (!disass)
+        std::cout << "\033[31mELF64 SECTIONS DISPLAY :\033[0m" << std::endl;
     for (int i = 0; i < hdr->shnum; i++)
     {
         section = stab[i];
