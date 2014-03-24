@@ -29,13 +29,16 @@ Header::Header()
 }
 
 Header::Header(const char* path)
-    : elf_file_(fopen(path, "r"))
+    : elf_file_(open(path, O_RDONLY))
     , header_(new s_elfheader)
     , abi_(new const char*[13])
     , isa_(new const char*[200])
     , type_(new const char*[5])
 {
-    fread(header_, 400, 1, elf_file_);
+    struct stat sb;
+    stat(path, &sb);
+    size_ = sb.st_size;
+    header_ = (s_elfheader*)mmap(0, size_, PROT_READ, MAP_PRIVATE, elf_file_, 0);
     abi_[0] = "System V";
     abi_[1] = "HP-UX";
     abi_[2] = "NetBSD";
@@ -64,8 +67,16 @@ Header::~Header()
 
 void Header::header_set(const char* path)
 {
-    elf_file_ = fopen(path, "r");
-    fread(header_, 400, 1, elf_file_);
+    struct stat sb;
+    stat(path, &sb);
+    size_ = sb.st_size;
+    elf_file_ = open(path, O_RDONLY);
+    header_ = (s_elfheader*)mmap(0, size_, PROT_READ, MAP_PRIVATE, elf_file_, 0);
+}
+
+s_elfheader* Header::header_get()
+{
+    return header_;
 }
 
 void Header::display()

@@ -1,7 +1,7 @@
 EXE=elftag
 CXX=g++
 CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic
-SRC=src/header.cc src/elftag.cc src/main.cc
+SRC=src/disass.cc src/header.cc src/elftag.cc src/main.cc
 OBJ=$(SRC:.cc=.o)
 TAR=yrakcaz-elftag
 

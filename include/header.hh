@@ -5,6 +5,10 @@
 # include <stdlib.h>
 # include <iostream>
 # include <map>
+# include <sys/stat.h>
+# include <sys/mman.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 // Structure for mapping the ELF64 header
 typedef struct elfheader
@@ -34,14 +38,17 @@ class Header
         ~Header();
 
         void header_set(const char* path);
+        s_elfheader* header_get();
+
         void display();
 
     private:
-        FILE* elf_file_;
+        int elf_file_;
         s_elfheader* header_;
         const char** abi_;
         const char** isa_;
         const char** type_;
+        size_t size_;
 };
 
 #endif /* !HEADER_HH */

@@ -3,6 +3,7 @@
 
 # include <iostream>
 # include "header.hh"
+# include "disass.hh"
 
 class Elftag
 {
@@ -22,6 +23,7 @@ class Elftag
         char **argv_;
         Header header_;
         bool display_header_;
+        bool display_sections_;
         bool help_;
 };
 
