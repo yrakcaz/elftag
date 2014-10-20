@@ -3,9 +3,13 @@ TODO:
 
 - Debug OS display
 
-- Linux x2 in abi_?     FIXED
+- Linux x2 in abi_?                         FIXED
 
 - Strace?
+
+- Display
+
+- Var on syntax
 
 - Errors checking
 
