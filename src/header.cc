@@ -2,18 +2,9 @@
 
 Header::Header()
     : header_(new s_elfheader)
-    , abi_(new const char*[13])
     , isa_(new const char*[200])
     , type_(new const char*[5])
 {
-    abi_[0] = "System V";
-    abi_[1] = "HP-UX";
-    abi_[2] = "NetBSD";
-    abi_[3] = "Linux";
-    abi_[6] = "OpenBSD";
-    abi_[7] = "AIX";
-    abi_[8] = "IRIX";
-    abi_[9] = "FreeBSD";
     isa_[2] = "SPARC";
     isa_[3] = "x86";
     isa_[8] = "MIPS";
@@ -31,7 +22,6 @@ Header::Header()
 Header::Header(const char* path)
     : elf_file_(open(path, O_RDONLY))
     , header_(new s_elfheader)
-    , abi_(new const char*[13])
     , isa_(new const char*[200])
     , type_(new const char*[5])
 {
@@ -39,14 +29,6 @@ Header::Header(const char* path)
     stat(path, &sb);
     size_ = sb.st_size;
     header_ = (s_elfheader*)mmap(0, size_, PROT_READ, MAP_PRIVATE, elf_file_, 0);
-    abi_[0] = "System V";
-    abi_[1] = "HP-UX";
-    abi_[2] = "NetBSD";
-    abi_[3] = "Linux";
-    abi_[6] = "OpenBSD";
-    abi_[7] = "AIX";
-    abi_[8] = "IRIX";
-    abi_[9] = "FreeBSD";
     isa_[2] = "SPARC";
     isa_[3] = "x86";
     isa_[8] = "MIPS";
@@ -82,7 +64,7 @@ s_elfheader* Header::header_get()
 void Header::display()
 {
     std::cout << "\n\033[31mRAW ELF64 HEADER DISPLAY :\033[0m" << std::endl << std::endl;
-    std::cout << "Identifier:\t" << /*abi_[*/*(int *)header_->identifier/*[7]]*/ << std::endl;
+    std::cout << "Identifier:\t" << *(int *)header_->identifier << std::endl;
     std::cout << "Type:\t\t" << type_[header_->type] << std::endl;
     std::cout << "Machine:\t" << isa_[header_->machine] << std::endl;
     std::cout << "Version:\t" << header_->version << std::endl;

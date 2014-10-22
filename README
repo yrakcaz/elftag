@@ -1,1 +1,6 @@
-WORK IN PROGRESS!
+README:
+-------
+
+Really simple disassembler and elf reader;
+
+./elftag --help for more usage informations.

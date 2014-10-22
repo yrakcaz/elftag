@@ -21,7 +21,7 @@ void  Disass::disass_text(s_sectionheader* section)
     ud_init(&obj);
     ud_set_input_buffer(&obj, text, section->size);
     ud_set_mode(&obj, 64);
-    ud_set_syntax(&obj, UD_SYN_INTEL);
+    ud_set_syntax(&obj, UD_SYN_ATT);
     while (ud_disassemble(&obj))
         std::cout << "\t" << ud_insn_asm(&obj) << std::endl;
 }

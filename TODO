@@ -1,16 +1,12 @@
 TODO:
 -----
 
-- Debug OS display
+- Debug OS display                          DONE
 
 - Linux x2 in abi_?                         FIXED
 
-- Strace?
+- Display help                              DONE
 
-- Display
+- Var on syntax                             NOPE (ATT syntax is better!)
 
-- Var on syntax
-
-- Errors checking
-
-- Valgrind
+- Valgrind                                  DONE

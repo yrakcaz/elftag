@@ -45,7 +45,6 @@ class Header
     private:
         int elf_file_;
         s_elfheader* header_;
-        const char** abi_;
         const char** isa_;
         const char** type_;
         size_t size_;

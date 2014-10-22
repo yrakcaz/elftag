@@ -39,7 +39,7 @@ void Elftag::display_help(std::ostream& ostr)
     ostr << "Usage:\telftag [options] [file]" << std::endl;
     ostr << "Options:\t-d, --display-header\tDisplays elf64 header." << std::endl;
     ostr << "        \t-s, --display-sections\tDisplays elf64 sections." << std::endl;
-    ostr << "        \t-a, --disass\tDisassemble the elf64 file." << std::endl;
+    ostr << "        \t-a, --disass\t\tDisassemble the elf64 file." << std::endl;
     ostr << "        \t-h, --help\t\tDisplays this help." << std::endl;
 }
 
