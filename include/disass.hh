@@ -36,7 +36,7 @@ class Disass
         Disass();
         /**
         ** @fn Disass(Header& header);
-        ** @brief Secon constructor, which needs a Header.
+        ** @brief Second constructor, which needs a Header.
         ** @param header Object representing the Header of the elf file.
         */
         Disass(Header& header);
