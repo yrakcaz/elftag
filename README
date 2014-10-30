@@ -1,6 +1,14 @@
 README:
 -------
 
-Really simple disassembler and elf reader;
+Really simple disassembler and elf reader.
 
-./elftag --help for more usage informations.
+Generate binary:
+    ./configure --prefix=<INSTALL DIR> && make
+
+Install:
+    make install
+    (if --prefix wasn't set in configure, install dir will be /usr/bin)
+
+Usage:
+    ./elftag --help for more usage informations.
