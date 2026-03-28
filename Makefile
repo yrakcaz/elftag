@@ -1,47 +1,35 @@
-EXE=elftag
+BIN=elftag
 CXX=g++
-CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic
+CXXFLAGS=-Wall -Wextra -Werror -std=c++11 -pedantic -Iinclude/
 SRC=src/disass.cc src/header.cc src/elftag.cc src/main.cc
 LDFLAGS=-ludis86
 OBJ=$(SRC:.cc=.o)
-TAR=yrakcaz-elftag
-DIR=/usr/bin
+TAR=yrakcaz-$(BIN)
+PREFIX=/usr/local
 
 -include makefile.rules
 
-all: $(EXE)
+all: $(BIN)
 
-$(EXE): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $(EXE) $^ $(LDFLAGS)
+$(BIN): $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $(BIN) $^ $(LDFLAGS)
 
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c -o $@ $^
 
 clean:
-	rm -f $(OBJ) $(EXE) $(TAR).tar.bz2
+	$(RM) $(OBJ) $(BIN) $(TAR).tar.bz2
 
-cleandoc:
-	rm -rf doc/html doc/latex doc/refman.pdf
-
-check: all
-	./elftag elftag | hexdump
-
-distclean: clean cleandoc
-	rm -f makefile.rules
+distclean: clean
+	$(RM) makefile.rules
 
 export:
 	git archive HEAD --prefix=$(TAR)/ | bzip2 > $(TAR).tar.bz2
 
 install:
-ifeq ($(DIR),/usr/bin)
-	sudo cp $(EXE) $(DIR)
-else
-	cp $(EXE) $(DIR)
-endif
+	cp $(BIN) $(PREFIX)/bin
 
-doc:
-	doxygen doc/Doxyfile
-	$(MAKE) -C doc/latex
-	mv doc/latex/refman.pdf doc/
+uninstall:
+	$(RM) $(PREFIX)/bin/$(BIN)
 
-.PHONY: all clean distclean export doc
+.PHONY: all clean distclean export install uninstall

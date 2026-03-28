@@ -1,13 +1,11 @@
 #ifndef DISASS_HH
 # define DISASS_HH
 
-# include "header.hh"
 # include "udis86.h"
 
-/**
-** @struct sectionheader
-** @brief Structure representing the header section of elf format.
-*/
+# include "header.hh"
+
+// ELF64 section header layout.
 typedef struct sectionheader
 {
     uint32_t name;
@@ -22,51 +20,25 @@ typedef struct sectionheader
     uint64_t entsize;
 } s_sectionheader;
 
-/**
-** @class Disass
-** @brief Class which has to disassemble elf into x86.
-*/
+// Disassembles x86-64 ELF binaries using udis86 (AT&T syntax).
 class Disass
 {
     public:
-        /**
-        ** @fn Disass();
-        ** @brief Default constructor.
-        */
-        Disass();
-        /**
-        ** @fn Disass(Header& header);
-        ** @brief Second constructor, which needs a Header.
-        ** @param header Object representing the Header of the elf file.
-        */
-        Disass(Header& header);
-        /**
-        ** @fn ~Disass();
-        ** @brief Default destructor.
-        */
-        ~Disass();
+        // Constructs with an ELF header.
+        Disass(const Header& header);
+        // Default destructor.
+        ~Disass() = default;
 
-        /**
-        ** @fn void print(bool disass);
-        ** @brief Final function which prints the x86 output.
-        ** @param disass If disass is true, then print will disass the code, else it will juste display sections of the elf file.
-        */
-        void print(bool disass);
+        // Lists sections or disassembles .text depending on the disass flag.
+        void print(bool disass) const;
 
     private:
-        /**
-        ** @fn void disass_text(s_sectionheader* section);
-        ** @brief Internal function which juste disassemble a .text section.
-        ** @param section Pointer on the section header structure.
-        */
-        void disass_text(s_sectionheader* section);
+        // Disassembles the .text section using udis86.
+        void disass_text(const s_sectionheader& section) const;
 
     private:
-        /**
-        ** @var header_
-        ** @brief Object header attribute.
-        */
-        Header header_;
+        // ELF header of the target binary.
+        const Header& header_;
 };
 
 #endif /* !DISASS_HH */

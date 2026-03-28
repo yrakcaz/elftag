@@ -1,2 +1,5 @@
 elftag
 *.o
+*.tar.bz2
+core*
+makefile.rules

@@ -1,4 +1,4 @@
-#include "../include/elftag.hh"
+#include <elftag.hh>
 
 Elftag::Elftag()
 {

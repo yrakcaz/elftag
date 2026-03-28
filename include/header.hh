@@ -1,19 +1,16 @@
 #ifndef HEADER_HH
 # define HEADER_HH
 
-# include <stdio.h>
-# include <stdlib.h>
+# include <cstdint>
 # include <iostream>
-# include <map>
-# include <sys/stat.h>
-# include <sys/mman.h>
-# include <unistd.h>
+# include <string>
+# include <unordered_map>
 # include <fcntl.h>
+# include <sys/mman.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
-/**
-** @struct elfheader
-** @brief Structure where to map the ELF64 header.
-*/
+// ELF64 header layout, mapped directly from the binary via mmap.
 typedef struct elfheader
 {
     unsigned char identifier[16];
@@ -32,75 +29,39 @@ typedef struct elfheader
     uint16_t shstrndx;
 } s_elfheader;
 
-/**
-** @class Header
-** @brief Class which represents the elf header.
-*/
+// Reads and displays an ELF64 header from a file.
 class Header
 {
     public:
-        /**
-        ** @fn Header();
-        ** @brief Default constructor.
-        */
+        // Default constructor.
         Header();
-        /**
-        ** @fn Header(const char* path);
-        ** @brief Principal constructor.
-        ** @param path Path to the elf file.
-        */
+        // Constructs from an ELF file at the given path.
         Header(const char* path);
-        /**
-        ** @fn ~Header();
-        ** @brief Default destructor.
-        */
+        // Default destructor.
         ~Header();
 
-        /**
-        ** @fn void header_set(const char* path);
-        ** @brief Setter for the header_ attribute.
-        ** @param path Path to an elf file to map.
-        */
+        // Maps the ELF header from the file at the given path.
         void header_set(const char* path);
-        /**
-        ** @fn s_elfheader* header_get();
-        ** @brief Getter for the header_ attribute.
-        ** @return Returns the header_ attribute.
-        */
-        s_elfheader* header_get();
-
-        /**
-        ** @fn void display();
-        ** @brief Displays the elf header.
-        */
+        // Returns the mapped ELF header.
+        s_elfheader* header_get() const;
+        // Prints the ELF header fields to stdout.
         void display();
 
     private:
-        /**
-        ** @var elf_file_
-        ** @brief File descriptor for the elf file.
-        */
-        int elf_file_;
-        /**
-        ** @var header_
-        ** @brief Pointer to the section header structure.
-        */
-        s_elfheader* header_;
-        /**
-        ** @var isa_
-        ** @brief Array indexing the different system architectures.
-        */
-        const char** isa_;
-        /**
-        ** @var type_
-        ** @brief Array indexing the different elf types.
-        */
-        const char** type_;
-        /**
-        ** @var size_
-        ** @brief Size of the elf file.
-        */
-        size_t size_;
+        // Populates isa_ and type_ lookup tables.
+        void init_tables();
+
+    private:
+        // File descriptor for the ELF file.
+        int elf_file_ = -1;
+        // Pointer to the mapped ELF header.
+        s_elfheader* header_ = nullptr;
+        // ISA name lookup table indexed by e_machine.
+        std::unordered_map<uint16_t, std::string> isa_;
+        // ELF type name lookup table indexed by e_type.
+        std::unordered_map<uint16_t, std::string> type_;
+        // Size of the mapped file.
+        size_t size_ = 0;
 };
 
 #endif /* !HEADER_HH */
