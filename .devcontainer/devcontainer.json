@@ -1,0 +1,8 @@
+{
+    "name": "elftag",
+    "image": "mcr.microsoft.com/devcontainers/base:debian",
+    "features": {
+        "ghcr.io/devcontainers/features/sshd:1": { "version": "latest" }
+    },
+    "onCreateCommand": "sudo apt-get update && sudo apt-get install -y libudis86-dev"
+}
